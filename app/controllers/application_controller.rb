@@ -10,5 +10,15 @@ class ApplicationController < Sinatra::Base
   get "/" do
     erb :welcome
   end
+  
+  get "/signin" do
+    erb :login
+  end
+
+  post "/signin" do
+    erb :login
+  end
+
+
 
 end
