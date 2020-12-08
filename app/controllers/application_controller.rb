@@ -3,7 +3,6 @@ require './config/environment'
 class ApplicationController < Sinatra::Base
 
   configure do
-    set :public_folder, 'public'
     set :views, 'app/views'
     
   end
@@ -12,23 +11,13 @@ class ApplicationController < Sinatra::Base
     erb :welcome
   end
 
- 
-  get "/signin" do
-    erb :login
+  get "/login" do
+    erb :'/user/login'
   end
 
-  post "/signin" do
-    erb :login
+  post "/login" do
+    erb :'/user/login'
   end
-
-  get "/signup" do
-    erb '/user/:new'
-  end
-  
-  post "/signup" do
-    erb '/user/:new'
-  end
-
 
 
 end
