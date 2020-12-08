@@ -1,6 +1,6 @@
 require './config/environment'
 class UsersController < Sinatra::Base
-    
+
   get "/signin" do
     erb :login
   end
@@ -10,10 +10,10 @@ class UsersController < Sinatra::Base
   end
 
   get "/signup" do
-    erb :new
+    erb '/user/:new'
   end
   
   post "/signup" do
-    erb :new
+    erb '/user/:new'
   end
 end
