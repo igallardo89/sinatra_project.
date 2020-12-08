@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
    has_many :meditations
-   has_secure_password    
+   validates_presence_of :email, :username, :password
+   has_secure_password  
 end

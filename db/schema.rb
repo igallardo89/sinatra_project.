@@ -14,15 +14,16 @@
 ActiveRecord::Schema.define(version: 20201208141120) do
 
   create_table "meditations", force: :cascade do |t|
-    t.datetime "Date"
-    t.integer  "Meditation_Length"
-    t.string   "Time_of_Day"
+    t.datetime "date"
+    t.integer  "meditation_length"
+    t.string   "time_of_day"
     t.integer  "user_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
+    t.string "username"
     t.string "email"
+    t.string "password"
   end
 
 end
