@@ -11,13 +11,12 @@ class ApplicationController < Sinatra::Base
   get "/" do
     erb :welcome
   end
-  
   get "/signin" do
-    erb :login
+    erb '/user/:login'
   end
 
   post "/signin" do
-    erb :login
+    erb '/user/:login'
   end
 
   get "/signup" do
@@ -27,6 +26,7 @@ class ApplicationController < Sinatra::Base
   post "/signup" do
     erb :new
   end
+  
 
 
 
