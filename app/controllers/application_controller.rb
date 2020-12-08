@@ -5,6 +5,7 @@ class ApplicationController < Sinatra::Base
   configure do
     set :public_folder, 'public'
     set :views, 'app/views'
+    
   end
 
   get "/" do
@@ -17,6 +18,14 @@ class ApplicationController < Sinatra::Base
 
   post "/signin" do
     erb :login
+  end
+
+  get "/signup" do
+    erb :new
+  end
+  
+  post "/signup" do
+    erb :new
   end
 
 
