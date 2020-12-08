@@ -9,7 +9,13 @@ class UsersController < ApplicationController
   end
     
   get "/signup" do
-    erb :'/user/new'
+    if logged_in?
+      redirect to :'/meditation'
+    else 
+     erb :'/user/new'
+    end 
   end
+ 
+
   
 end
