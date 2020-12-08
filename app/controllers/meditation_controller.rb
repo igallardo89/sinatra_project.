@@ -1,15 +1,13 @@
 
 class MeditationsController < ApplicationController
 
-    get "/meditations" do
-       Hello Meditation
-    end
+  get "/meditation" do
+    erb :'/meditation/index'
+  end
 
-    post "/meditations" do
-        Hello Meditation
-    end
-    
-
+  post "/meditation" do 
+    erb :'/meditation/index'
+  end
 
 
 end
