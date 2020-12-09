@@ -18,7 +18,4 @@ class MeditationsController < ApplicationController
   end
 
 
-
-
-
 end
