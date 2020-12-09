@@ -1,19 +1,19 @@
 
 class MeditationsController < ApplicationController
 
-  get "/meditation" do
+  get "/meditations" do
     erb :'/meditation/index'
   end
 
-  post "/meditation" do 
+  post "/meditations" do 
     erb :'/meditation/index'
   end
 
-  get "/meditation/new" do 
+  get "/meditations/new" do 
     erb :'/meditation/new'
   end
 
-  post "/meditation/new" do 
+  post "/meditations/new" do 
     erb :'/meditation/new'
   end
 
