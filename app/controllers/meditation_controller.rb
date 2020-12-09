@@ -2,7 +2,10 @@
 class MeditationsController < ApplicationController
 
   get "/meditations" do
-    erb :'/meditation/index'
+      authenticate
+      @user = current_user
+      @meditations = Meditations.all 
+      erb :'/meditation/index'
   end
 
   post "/meditations" do 
