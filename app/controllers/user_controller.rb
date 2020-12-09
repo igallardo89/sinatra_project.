@@ -8,6 +8,7 @@ class UsersController < ApplicationController
     @user = User.new(:username => params[:username], :email => parmas[:email], :password => parmas[:password])
     if user.save
       redirect to '/login'
+      #or session[:id] = @user.id
     else 
       flash[message] = "Seems like something wrong try again"
       redirect to 'signup'
