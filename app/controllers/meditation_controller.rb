@@ -14,15 +14,22 @@ class MeditationsController < ApplicationController
     erb :'/meditation/new'
   end
 
-  post "/meditations" do 
-    @meditation = Meditation.create(date: params[:date], meditation_length: params[:meditation_length], time_of_date: params[:time_of_date])
-      if @meditation.error.any?
-        erb :'/meditation/new'
-      else
-        erb :'/meditation/show'
+    post "/meditations" do 
+      @meditation = Meditation.create(date: params[:date], meditation_length: params[:meditation_length], time_of_date: params[:time_of_date])
+        if @meditation.error.any?
+          erb :'/meditation/new'
+        else
+          erb :'/meditation/show'
+        end
       end
+
+    get "/meditations/:id" do
+      authenticate
+      @meditation = Meditation.find_by_id(params[:id]) 
+      erb :'/meditation/show'
     end
-    
+
+
 
      
 
