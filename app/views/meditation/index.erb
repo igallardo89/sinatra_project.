@@ -1,0 +1,12 @@
+<h1>Welcome, <%= @user.username %></h1>
+<h2> We are so happy you are tracking you Meditation Progress!</h2>
+<h3>List of Meditations:</h3>
+
+<% @meditations.each do |meditation| %>
+  <h5>Meditation: <%= meditation.date%></h5>
+  <h6>- <%= @meditation.user.username %></h6>
+  <p><a href="/meditations/<%= meditation.id %>">Show Details</a></p>
+  <% end %>
+
+  <p><a button id="createnew" type="button" class="btn btn-default" href="/meditations/new">Create a New Meditation Log</a></p>
+  <p><a button id="logoutbtn" type="button" class="btn btn-default" href="/logout">Log Out</a></p>

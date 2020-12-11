@@ -12,8 +12,7 @@ class UsersController < ApplicationController
     @user = User.create(:username => params[:username], :email => params[:email], :password => params[:password])
        if @user.errors.any?
         session[:user_id] = @user.id
-        flash[message]= "Try again"
-        erb :'/user/new'
+        redirect_to :'/user/new', notice: "User not found. Please try again"
        else
         session[:user_id] = @user.id
         redirect :'/meditations'
@@ -34,8 +33,7 @@ class UsersController < ApplicationController
           session[:user_id] = @user.id
           redirect :'/meditations'
         else
-          flash[message] = "Failed attempt, please try again"
-          erb :'/user/login'
+          redirect to :'/user/login'
         end
       end
 
