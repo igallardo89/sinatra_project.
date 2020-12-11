@@ -32,7 +32,7 @@ class UsersController < ApplicationController
       @user = User.find_by(username: params[:username])
         if @user && @user.authenticate(params [:password])
           session[:user_id] = @user.id
-          redirect '/meditations'
+          redirect :'/meditations'
         else
           flash[message] = "Failed attempt, please try again"
           erb :'/user/login'
@@ -43,19 +43,11 @@ class UsersController < ApplicationController
         session.clear
         redirect '/'
       end
-      
+   
+        #Patch
 
-
-
-
-         
-      
-
-  #delete 
-  #gives the user the option to delete account.
-# end 
-    
-
-
+        #delete 
+        #gives the user the option to delete account.
+        # end 
   
 end
