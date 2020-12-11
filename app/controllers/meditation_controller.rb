@@ -33,12 +33,19 @@ class MeditationsController < ApplicationController
       @meditationn = Meditation.find_by(id: params[:id])
       authenticate
       if logged_in? && @meditationn.user_id == current_user.id
-        erb :'meditation/edit'
+        erb :'/meditation/edit'
+      else 
+        flash[message] = "Something went wrong, try again"
+        erb :'/meditation/show'
       end
+    end
   
+   #patch method
 
-
-     
-
+    delete '/meditations/:id' do 
+      @meditation = Meditation
+      @meditation.destroy if @meditation.user_id == current_user.id
+      redirect '/meditations'
+    end
 
 end
