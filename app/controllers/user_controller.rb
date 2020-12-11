@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
   get "/signup" do 
     if logged_in? 
-      redirect to '/meditations'
+      redirect to :'/meditations'
     else
       erb :'/user/new'
     end 
@@ -20,25 +20,36 @@ class UsersController < ApplicationController
       end
   end
 
+    get '/login' do 
+      if logged_in?
+        redirect :'/meditations'
+      else
+        erb :'/users/login'
+      end
+    end
+
+    post '/login' do 
+      @user = User.find_by(username: params[:username])
+        if @user && @user.authenticate(params [:password])
+          session[:user_id] = @user.id
+          redirect '/meditations'
+        else
+          flash[message] = "Failed attempt, please try again"
+          erb :'/user/login'
+        end
+      end
+
+      get '/logout' do
+        session.clear
+        redirect '/'
+      end
+      
+
+
+
+
          
       
-      
-    
-  #get "/login" do
-    #erb :'/user/login'
-    #this find the user id  then redirect to show the session
-    #redirect to sign up if they arent a user
-  #end
-    
-  #post "/login" do
-   # erb :'/user/login'
-    #show the meditations affiliated with the user 
-    #redirect to signup 
-  #end
-
-  #patch/put 
-   # edit - meditation/edit 
-  #end 
 
   #delete 
   #gives the user the option to delete account.
