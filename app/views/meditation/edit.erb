@@ -1,2 +1,12 @@
 <h1> Edit Your Meditation </h1>
-<form method="post" action="/meditations/"<%= @meditation.id %>
+<form method="post" action="/meditations/ <%= @meditation.id %>">
+<p><input id= "hidden" type= "hidden" name="_method" value="patch">
+<p>Date:</p>
+<input type="datetime" id="date" name="date" value="<%= @meditation.date %>">
+<p>Length of Meditation:</p>
+<input type="integer" id="meditation_length" name="meditation_length" value="<%= @meditation.length %>">
+<p>Time of Day </p>
+<input type="text" id="time_of_day" name="time_of_day" value="<%= @meditation.time_of_day%>">
+<button type="submit" alt="Edit Meditation"></button></p>
+</form>
+

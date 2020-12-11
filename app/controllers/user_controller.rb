@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   end
 
   post "/signup" do
-    @user = User.new(:username => params[:username], :email => parmas[:email], :password => parmas[:password])
+    @user = User.create(:username => params[:username], :email => parmas[:email], :password => parmas[:password])
        if user.errors.any?
         session[:user_id] = @user.id
         flash[message]= "Try again"
