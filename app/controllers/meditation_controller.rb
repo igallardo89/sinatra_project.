@@ -50,7 +50,7 @@ class MeditationsController < ApplicationController
         erb :'/meditation/show'
       end
     end
-    
+
     delete "/meditations/:id" do 
       meditation = Meditation.find_by(id: params[:id])
         if meditation.user_id == current_user.id
