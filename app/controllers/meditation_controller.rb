@@ -29,6 +29,13 @@ class MeditationsController < ApplicationController
       erb :'/meditation/show'
     end
 
+    get "/meditations/:id/edit" do 
+      @meditationn = Meditation.find_by(id: params[:id])
+      authenticate
+      if logged_in? && @meditationn.user_id == current_user.id
+        erb :'meditation/edit'
+      end
+  
 
 
      
