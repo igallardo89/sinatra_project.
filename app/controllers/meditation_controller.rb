@@ -44,8 +44,10 @@ class MeditationsController < ApplicationController
 
     delete '/meditations/:id' do 
       @meditation = Meditation
-      @meditation.destroy if @meditation.user_id == current_user.id
-      redirect '/meditations'
+        if @meditation.user_id == current_user.id
+          @meditation.destroy 
+        redirect '/meditations'
     end
+  end
 
 end

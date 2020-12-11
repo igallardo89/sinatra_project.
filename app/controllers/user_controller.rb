@@ -1,22 +1,29 @@
 class UsersController < ApplicationController
 
   get "/signup" do 
-    erb :'/user/new'
+    if logged_in? 
+      redirect to '/meditations'
+    else
+      erb :'/user/new'
+    end 
   end
 
   post "/signup" do
     @user = User.new(:username => params[:username], :email => parmas[:email], :password => parmas[:password])
-    if user.save
-      redirect to '/login'
-      #or session[:id] = @user.id
-    else 
-      flash[message] = "Seems like something wrong try again"
-      redirect to 'signup'
-   # needs to create the user and the eventually login them in to acount 
-   # give the option of redirecting to main page
-    end
+       if user.errors.any?
+        session[:user_id] = @user.id
+        flash[message]= "Try again"
+        erb :'/user/new'
+       else
+        session[:user_id] = @user.id
+        redirect :'/meditations'
+      end
   end
 
+         
+      
+      
+    
   #get "/login" do
     #erb :'/user/login'
     #this find the user id  then redirect to show the session
