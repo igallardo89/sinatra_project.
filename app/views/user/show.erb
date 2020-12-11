@@ -2,7 +2,7 @@
 <br>
 <h2> List of Your Meditations!</h2>
 <ul>
-<% @user.Meditations.each do |meditation| %>
+<% @user.meditations.each do |meditation| %>
     <li><p><a href = "/meditations/"<%= meditation.id%> <%= meditation.date %></a></p></li>
     <% end %>
     </ul>

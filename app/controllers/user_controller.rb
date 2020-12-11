@@ -9,8 +9,8 @@ class UsersController < ApplicationController
   end
 
   post "/signup" do
-    @user = User.create(:username => params[:username], :email => parmas[:email], :password => parmas[:password])
-       if user.errors.any?
+    @user = User.create(:username => params[:username], :email => params[:email], :password => params[:password])
+       if @user.errors.any?
         session[:user_id] = @user.id
         flash[message]= "Try again"
         erb :'/user/new'
@@ -24,13 +24,13 @@ class UsersController < ApplicationController
       if logged_in?
         redirect :'/meditations'
       else
-        erb :'/users/login'
+        erb :'/user/login'
       end
     end
 
     post '/login' do 
       @user = User.find_by(username: params[:username])
-        if @user && @user.authenticate(params [:password])
+        if @user && @user.authenticate(params[:password])
           session[:user_id] = @user.id
           redirect :'/meditations'
         else
@@ -44,10 +44,5 @@ class UsersController < ApplicationController
         redirect '/'
       end
    
-        #Patch
-
-        #delete 
-        #gives the user the option to delete account.
-        # end 
   
 end

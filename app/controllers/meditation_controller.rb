@@ -30,9 +30,9 @@ class MeditationsController < ApplicationController
     end
 
     get "/meditations/:id/edit" do 
-      @meditationn = Meditation.find_by(id: params[:id])
+      @meditation = Meditation.find_by(id: params[:id])
       authenticate
-      if logged_in? && @meditationn.user_id == current_user.id
+      if logged_in? && @meditation.user_id == current_user.id
         erb :'/meditation/edit'
       else 
         flash[message] = "Something went wrong, try again"
@@ -40,12 +40,21 @@ class MeditationsController < ApplicationController
       end
     end
   
-   #patch method
-
-    delete '/meditations/:id' do 
-      @meditation = Meditation
-        if @meditation.user_id == current_user.id
-          @meditation.destroy 
+   patch "/meditation/:id" do 
+    @meditation = Meditation.find_by(id: params[:id])
+    @meditation.update(date: params[:date], meditation_length: params[:meditation_length], time_of_date: params[:time_of_date])
+      if @meditation.errors.any?
+        flash[message]="Try again."
+        erb :'/meditation/edit'
+      else
+        erb :'/meditation/show'
+      end
+    end
+    
+    delete "/meditations/:id" do 
+      meditation = Meditation.find_by(id: params[:id])
+        if meditation.user_id == current_user.id
+          meditation.destroy 
         redirect '/meditations'
     end
   end
