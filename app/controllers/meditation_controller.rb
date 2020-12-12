@@ -43,7 +43,6 @@ class MeditationsController < ApplicationController
     @meditation = Meditation.find_by(id: params[:id])
     @meditation.update(date: params[:date], meditation_length: params[:meditation_length], time_of_day: params[:time_of_day])
       if @meditation.errors.any?
-        flash.alert ="Try again."
         erb :'/meditation/edit'
       else
         erb :'/meditation/show'
