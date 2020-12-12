@@ -23,38 +23,42 @@ class MeditationsController < ApplicationController
       end
 
     get "/meditations/:id" do
+      @failed = false
       authenticate
       @meditation = Meditation.find_by_id(params[:id]) 
+      redirect '/meditations' if @item.nil?
       erb :'/meditation/show'
     end
+  end
+
 
     get "/meditations/:id/edit" do 
-    
       @meditation = Meditation.find_by(id: params[:id])
-    
+      authenticate
       if logged_in? && @meditation.user_id == current_user.id
         erb :'/meditation/edit'
       else 
+        @failed = true
         erb :'/meditation/show'
       end
     end
   
-   patch "/meditation/:id" do 
-    @meditation = Meditation.find_by(id: params[:id])
-    @meditation.update(date: params[:date], meditation_length: params[:meditation_length], time_of_day: params[:time_of_day])
-      if @meditation.errors.any?
-        erb :'/meditation/edit'
-      else
-        erb :'/meditation/show'
+    patch "/meditation/:id" do 
+      @meditation = Meditation.find_by(id: params[:id])
+      @meditation.update(date: params[:date], meditation_length: params[:meditation_length], time_of_day: params[:time_of_day])
+        if @meditation.errors.any?
+          erb :'/meditation/edit'
+        else
+          erb :'/meditation/show'
+        end
       end
-    end
 
     delete "/meditations/:id" do 
       meditation = Meditation.find_by(id: params[:id])
         if meditation.user_id == current_user.id
           meditation.destroy 
         redirect '/meditations'
+      end
     end
-  end
 
 end
