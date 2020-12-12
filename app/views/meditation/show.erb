@@ -9,7 +9,7 @@
 <h3><a href="/meditations">Home Page</a></h3>
 
 
-<form method="POST" action="/meditations/"<%=@meditation.id%>/delete">
+<form method="POST" action="/meditations/<%=@meditation.id%>/delete">
 <input id="hidden" type="hidden" name="_method" value="delete">
 <input type="submit" value="Delete Meditation">
 </form>
