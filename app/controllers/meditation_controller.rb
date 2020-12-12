@@ -32,6 +32,8 @@ class MeditationsController < ApplicationController
   get '/meditations/:id' do
     if logged_in?
       @meditation = Meditation.find_by_id(params[:id])
+      binding.pry
+      
       erb :'meditation/show'
     else
       redirect :'/login'
