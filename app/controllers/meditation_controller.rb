@@ -15,12 +15,24 @@ class MeditationsController < ApplicationController
   end
 
     post "/meditations/new" do 
-      @meditation = Meditation.create(date: params[:date], meditation_length: params[:meditation_length], time_of_day: params[:time_of_day])
-      #if @meditation.errors.any?
-       #   erb :'/meditation/new'
-        #else
-          erb :'/meditation/show'
+      if params.empty?
+        flash[:error] = "Please complete"
+        redirect :'/meditiations/new'
+      elsif logged_in? && !params.empty?
+        @meditation = Meditation.create(date: params[:date], meditation_length: params[:meditation_length], time_of_day: params[:time_of_day])
+       if @meditation.save
+          redirect :"/meditations/#{@meditation.id}"
+        else
+          flash[:error] = "Cannot be saved"
+          redirect :'/login'
       end
+    else 
+      flash[:error]= "You must be logged in to see meditations"
+      redirect :'/login'
+    end
+    current_user.save
+  end
+
 
     get "/meditations/:id" do
       if logged_in? 

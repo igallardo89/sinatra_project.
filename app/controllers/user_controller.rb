@@ -29,6 +29,7 @@ class UsersController < ApplicationController
           session[:user_id] = @user.id
           redirect :'/meditations'
         else
+          flash[:message] = "User not found please try again!"
           redirect to :'/login'
         end
     end
