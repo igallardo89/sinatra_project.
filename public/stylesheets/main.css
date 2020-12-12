@@ -13,15 +13,16 @@
 
   /* --- Welcome Page Styles --- */
   body {
-    background-color: lightblue;
+    background-image: url("https://cdn.searchenginejournal.com/wp-content/uploads/2019/06/how-to-build-grit-with-meditation-1520x800.png");
+    };
     color: #333;
-    font-family: Sans-Serif;
+    font-family: Serif;
     line-height: 18px;
   }
 
   .wrapper {
-    background: #fff;
-    -moz-box-shadow: 0 0 10px rgba(0,0,0,.3);
+    background: rgb(245, 245, 245);
+    -moz-box-shadow: 0 0 10px rgba(184, 172, 172, 0.3);
     -webkit-box-shadow: 0 0 10px rgba(0,0,0,.3);
     box-shadow: 0 0 10px rgba(0,0,0,.3);
     margin: 16px auto;
@@ -36,7 +37,7 @@
   }
 
   h2 {
-    border-bottom: 2px solid #ccc;
+    border-bottom: solid #ccc;
     font-size: 24px;
     line-height: 36px;
     margin-bottom: 16px;
@@ -56,7 +57,7 @@
   }
 
   .content {
-    float: left;
+    float: center;
     width: 60%; /* 480px / 800px */
   }
 
@@ -77,7 +78,7 @@
   }
 
   footer.branding {
-    border-top: 2px solid #ccc;
+    border-top: Opx;
     margin-top: 20px;
     padding-top: 20px;
   }

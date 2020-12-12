@@ -1,15 +1,16 @@
-<h1> View Meditation </h1>
-<h3> Date: </h3>
-<p><%=@meditation.date%></p>
-<h3> Meditation Length:</h3>
-<p><%=@meditation.meditation_length%></p>
-<h3> Day or Night:</h3>
-<p><%=@meditation.time_of_day%></p>
-<h3><a href="/meditations/edit">Edit Meditation</a></h3>
-<h3><a href="/meditations">Home Page</a></h3>
+<h1>View Meditation</h1>
 
+<h3>Date:</h3>
+<h4><%= @meditation.date%></h4>
+<h3>Length of Meditation:</h3>
+<h4><%= @meditation.meditation_length%></h4>
+<h3>Time of Day (Day/Night):</h3>
+<h4><%= @meditation.time_of_day%></h4>
 
-<form method="POST" action="/meditations/delete">
+<br><h5><a href="/meditations/<%= @meditation.id %>/edit">Edit Meditation</a></h5><br>
+<a href="/meditations">Browse All Meditations</a>
+<form method="POST" action="/meditations/<%= @meditation.id %>/delete">
 <input id="hidden" type="hidden" name="_method" value="delete">
-<input type="submit" value="Delete Meditation">
+
+<input type="submit" value="Delete Tweet">
 </form>

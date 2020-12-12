@@ -1,76 +1,68 @@
 
 class MeditationsController < ApplicationController
-
-  get "/meditations" do
-    authenticate
-    @user = current_user
-    @meditations = Meditation.all 
-    erb :'/meditation/index'
-  end
-
-  get "/meditations/new" do 
-    authenticate
-    @meditation = Meditation.new
-    erb :'/meditation/new'
-  end
-
-    post "/meditations/new" do 
-      if params.empty?
-        flash[:error] = "Please complete"
-        redirect :'/meditiations/new'
-      elsif logged_in? && !params.empty?
-        @meditation = Meditation.create(date: params[:date], meditation_length: params[:meditation_length], time_of_day: params[:time_of_day])
-       if @meditation.save
-          redirect :"/meditations/#{@meditation.id}"
-        else
-          flash[:error] = "Cannot be saved"
-          redirect :'/login'
-      end
-    else 
-      flash[:error]= "You must be logged in to see meditations"
+   
+  get '/meditations' do
+    @meditations = Meditation.all
+    if logged_in?
+      @user = current_user
+      erb :'/meditation/index'
+    else
       redirect :'/login'
     end
-    current_user.save
   end
 
-
-    get "/meditations/:id" do
-      if logged_in? 
-        @meditation = Meditation.find_by_id(params[:id])
-        erb :'/meditation/show'
-      else
-        flash[:error] = "You must be logged in to view meditations"
-        redirect '/login'
+  get '/meditations/new' do
+    if logged_in?
+      erb :'/meditation/new'
+    else 
+      redirect :'/login'
     end
   end
 
+  post '/meditations/new' do
+    @user = current_user
+    @meditation =  Meditation.create(date: params[:date], meditation_length: params[:meditation_length], time_of_day: params[:time_of_day], user: @user)
+    if @meditation.save
+      redirect :"/user/#{user.slug}"
+    else
+      redirect :'/meditations/new'
+    end
+  end
 
-    get "/meditations/:id/edit" do 
+  get '/meditations/:id' do
+    if logged_in?
       @meditation = Meditation.find_by_id(params[:id])
-      authenticate
-      if logged_in? && @meditation.user_id == current_user.id
-        erb :'/meditation/edit'
-      else 
-        redirect to '/login'
-      end
+      erb :'meditation/show'
+    else
+      redirect :'/login'
     end
+  end
   
-    patch "/meditations/:id" do 
-      @meditation = Meditation.find_by_id(params[:id])
-      @meditation.update(date: params[:date], meditation_length: params[:meditation_length], time_of_day: params[:time_of_day])
-        if @meditation.errors.any?
-          erb :'/meditation/edit'
-        else
-          erb :'/meditation/show'
-        end
-      end
-
-    delete "/meditations/:id" do 
-      meditation = Meditation.find_by_id (params[:id])
-        if meditation.user_id == current_user.id
-          meditation.destroy 
-        redirect :'/meditations'
-      end
+  get '/meditations/:id/edit' do
+    @meditation = Meditation.find_by(id: params[:id])
+    if logged_in? && @meditation.user == current_user
+      erb :"/meditation/edit"
+    else
+      redirect to '/login'
     end
   end
 
+  patch "/meditations/:id/edit" do
+    @meditation = Meditation.find_by_id(params[:id])
+    @user = current_user
+    if @meditation.update(date: params[:date], meditation_length: params[:meditation_length], time_of_day: params[:time_of_day], user: @user)
+      redirect :"/meditations/#{@meditation.id}"
+    else
+      redirect :"/meditations/#{@meditation.id}/edit"
+    end
+  end
+
+  delete '/meditations/:id/delete' do
+    meditation = current_user.meditations.find_by_id(params[:id])
+    if meditation && meditation.destroy
+      redirect :'/meditations'
+    else 
+      redirect :"/meditations/:id" #should this be interpolationed #{(@)meditation.id}
+    end
+  end
+end

@@ -1,41 +1,55 @@
 class UsersController < ApplicationController
 
-    get "/signup" do 
+    get '/signup' do 
       if logged_in? 
-        redirect to :'/meditations'
-      else
+        redirect :'/meditations'
+      else 
         erb :'/user/new'
+      end
+    end
+    
+    post '/signup' do
+      @user = User.new(params)
+      if @user.save
+        session[:id] = @user.id
+        redirect :'/meditations'
+      else
+        flash[:message]="Please fill out all fields to create an account."
+        redirect :'/signup'
       end 
     end
 
-    post "/signup" do
-      @user = User.create(:username => params[:username], :email => params[:email], :password => params[:password])
-        if @user.save
-          session[:user_id] = @user.id
-          redirect to "/meditations"
-        else
-          redirect :'/'
-        end
+    get '/login' do
+      if logged_in?
+        redirect :'/meditations'
+      else 
+        erb :'/user/login'
+      end
     end
 
-    get '/login' do   
-      redirect :'/meditations' if logged_in?
-      erb :'/user/login'
-    end
-
-    post '/login' do 
+    post '/login' do
       @user = User.find_by(username: params[:username])
-        if @user && @user.authenticate(params[:password])
-          session[:user_id] = @user.id
-          redirect :'/meditations'
-        else
-          flash[:message] = "User not found please try again!"
-          redirect to :'/login'
-        end
+      if @user && @user.authenticate(params[:password])
+        session[:id] = @user.id 
+        redirect :'/meditations'
+      else
+        flash[:error]="Please try again. No login found."
+        erb :'/user/login'
+      end
     end
 
-    get '/logout' do
-      session.clear
-      redirect :'/'
+    get '/user/:slug' do 
+      @user = User.find_by_slug(params[:slug])
+      erb :'/user/show'
     end
-end
+
+    get "/logout" do 
+      if logged_in?
+        session.clear
+        redirect :'/login'
+      else
+        redirect :'/'
+      end
+    end
+  end
+

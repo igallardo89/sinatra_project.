@@ -1,4 +1,12 @@
-<h1> Edit Your Meditation </h1>
+  <h1>Edit Your Meditation</h1>
+
+  <form method="POST" action="/meditations/<%= @meditation.id %>/edit">
+  <input id="hidden" type="hidden" name="_method" value="patch">
+  <textarea type="datetime" name="date" rows="5" cols="50"><%= @meditation.date %></textarea><br>
+  <textarea type="integer" name="meditation_length" rows="5" cols="50"><%= @meditation.meditation_length %></textarea><br>
+  <textarea type="text" name="time_of_day" rows="5" cols="50"><%= @meditation.time_of_day %></textarea><br>
+  <input type="submit" value="submit">
+  </form>
 
 
 <a button id="mainbtn" type="button" class="btn btn-default" href="/">Main Page</a>

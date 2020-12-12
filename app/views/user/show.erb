@@ -1,0 +1,8 @@
+<h2>Hi, <%= @user.username %></h2>
+<br>
+<h4>Your Meditations:</h4>
+<% @user.meditations.each do |meditation| %>
+  <br>
+  <h5>Date: <%= meditation.date %></h5>
+  <p><a href="/meditations/<%= @meditation.id %>">Show Details</a></p>
+<% end %>
