@@ -1,8 +1,13 @@
 <h1> View Meditation </h1>
-<h2><%=@meditation.date%></h2>
+<h3> Date: </h3>
+<p><%=@meditation.date%></p>
+<h3> Meditation Length:</h3>
 <p><%=@meditation.meditation_length%></p>
+<h3> Day or Night:</h3>
 <p><%=@meditation.time_of_day%></p>
 <h3><a href="/meditations/<%=@meditation.id%>/edit">Edit Meditation</a></h3>
+<h3><a href="/meditations">Home Page</a></h3>
+
 
 <form method="POST" action="/meditations/"<%=@meditation.id%>/delete">
 <input id="hidden" type="hidden" name="_method" value="delete">

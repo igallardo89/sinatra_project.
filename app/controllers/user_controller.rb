@@ -10,21 +10,17 @@ class UsersController < ApplicationController
 
   post "/signup" do
     @user = User.create(:username => params[:username], :email => params[:email], :password => params[:password])
-       if @user.errors.any?
+       if @user.save
         session[:user_id] = @user.id
-        redirect_to :'/user/new', notice: "User not found. Please try again"
+        redirect to "/meditations"
        else
-        session[:user_id] = @user.id
-        redirect :'/meditations'
+        redirect :'/'
       end
   end
 
-    get '/login' do 
-      if logged_in?
-        redirect :'/meditations'
-      else
-        erb :'/user/login'
-      end
+    get '/login' do   
+      redirect :'/meditations' if logged_in?
+      erb :'/user/login'
     end
 
     post '/login' do 
@@ -33,7 +29,7 @@ class UsersController < ApplicationController
           session[:user_id] = @user.id
           redirect :'/meditations'
         else
-          redirect to :'/user/login'
+          redirect to :'/login'
         end
       end
 

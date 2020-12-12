@@ -16,12 +16,10 @@ class MeditationsController < ApplicationController
 
     post "/meditations/new" do 
       @meditation = Meditation.create(date: params[:date], meditation_length: params[:meditation_length], time_of_day: params[:time_of_day])
-      binding.pry 
-      if @meditation.errors.any?
-          erb :'/meditation/new'
-        else
+      #if @meditation.errors.any?
+       #   erb :'/meditation/new'
+        #else
           erb :'/meditation/show'
-        end
       end
 
     get "/meditations/:id" do
@@ -31,12 +29,12 @@ class MeditationsController < ApplicationController
     end
 
     get "/meditations/:id/edit" do 
+    
       @meditation = Meditation.find_by(id: params[:id])
-      authenticate
+    
       if logged_in? && @meditation.user_id == current_user.id
         erb :'/meditation/edit'
       else 
-        flash[message] = "Something went wrong, try again"
         erb :'/meditation/show'
       end
     end
@@ -44,9 +42,8 @@ class MeditationsController < ApplicationController
    patch "/meditation/:id" do 
     @meditation = Meditation.find_by(id: params[:id])
     @meditation.update(date: params[:date], meditation_length: params[:meditation_length], time_of_day: params[:time_of_day])
-    binding.pry
       if @meditation.errors.any?
-        flash[message]="Try again."
+        flash.alert ="Try again."
         erb :'/meditation/edit'
       else
         erb :'/meditation/show'
