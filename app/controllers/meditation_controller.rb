@@ -2,9 +2,9 @@
 class MeditationsController < ApplicationController
    
   get '/meditations' do
-    @meditations = Meditation.all
     if logged_in?
       @user = current_user
+      @meditations = @user.meditations
       erb :'/meditation/index'
     else
       redirect :'/login'
@@ -23,7 +23,7 @@ class MeditationsController < ApplicationController
     @user = current_user
     @meditation =  Meditation.create(date: params[:date], meditation_length: params[:meditation_length], time_of_day: params[:time_of_day], user: @user)
     if @meditation.save
-      redirect :"/user/#{user.slug}"
+      redirect :"/user/#{@user.slug}"
     else
       redirect :'/meditations/new'
     end
@@ -32,8 +32,7 @@ class MeditationsController < ApplicationController
   get '/meditations/:id' do
     if logged_in?
       @meditation = Meditation.find_by_id(params[:id])
-      binding.pry
-      
+     
       erb :'meditation/show'
     else
       redirect :'/login'
@@ -61,10 +60,11 @@ class MeditationsController < ApplicationController
 
   delete '/meditations/:id/delete' do
     meditation = current_user.meditations.find_by_id(params[:id])
-    if meditation && meditation.destroy
+    if meditation
+       meditation.destroy
       redirect :'/meditations'
     else 
-      redirect :"/meditations/:id" #should this be interpolationed #{(@)meditation.id}
+      redirect :"/meditations/#{params[:id]}"
     end
   end
 end

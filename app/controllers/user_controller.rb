@@ -40,7 +40,7 @@ class UsersController < ApplicationController
 
     get '/user/:slug' do 
       @user = User.find_by_slug(params[:slug])
-      erb :'/user/show'
+      redirect :'/meditations'
     end
 
     get "/logout" do 
