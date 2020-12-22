@@ -15,6 +15,7 @@ class MeditationsController < ApplicationController
     if logged_in?
       erb :'/meditation/new'
     else 
+      flash[:error]= "No user found please try again or Create User."
       redirect :'/login'
     end
   end
