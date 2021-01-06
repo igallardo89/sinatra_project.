@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
    has_many :meditations
-   validates_presence_of :email, :username, :password
+   validates :username, uniqueness: true
+   validates :email, uniqueness: true
+   validates_presence_of :email, :username,  :password
    has_secure_password  
   
    def slug

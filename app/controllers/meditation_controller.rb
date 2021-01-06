@@ -22,7 +22,7 @@ class MeditationsController < ApplicationController
 
   post '/meditations/new' do
     @user = current_user
-    @meditation =  Meditation.create(date: params[:date], meditation_length: params[:meditation_length], time_of_day: params[:time_of_day], user: @user)
+    @meditation =  Meditation.new(date: params[:date], meditation_length: params[:meditation_length], time_of_day: params[:time_of_day], user: @user)
     if @meditation.save
       redirect :"/user/#{@user.slug}"
     else
@@ -33,7 +33,6 @@ class MeditationsController < ApplicationController
   get '/meditations/:id' do
     if logged_in?
       @meditation = Meditation.find_by_id(params[:id])
-     
       erb :'meditation/show'
     else
       redirect :'/login'

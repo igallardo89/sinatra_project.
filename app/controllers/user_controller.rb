@@ -14,7 +14,7 @@ class UsersController < ApplicationController
         session[:id] = @user.id
         redirect :'/meditations'
       else
-        flash[:message]="Please fill out all fields to create an account."
+        flash[:message]= @user.errors.full_messages.to_sentence
         redirect :'/signup'
       end 
     end
@@ -33,7 +33,7 @@ class UsersController < ApplicationController
         session[:id] = @user.id 
         redirect :'/meditations'
       else
-        flash[:error]="Please try again. No login found."
+        flash.now[:message]="Please try again. No login found."
         erb :'/user/login'
       end
     end
